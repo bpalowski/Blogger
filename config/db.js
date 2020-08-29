@@ -7,7 +7,6 @@ const connect = async () => {
       useUnifiedTopology: true,
       useFindAndModify: true
     })
-
     console.log(`Connected :${connection.connection.host}`)
   } catch (err) {
     console.error(err)
