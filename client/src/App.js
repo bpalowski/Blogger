@@ -16,6 +16,7 @@ const App = () => {
           component={Main}
         />
         <Route
+          exact
           path="/login"
           component={Login}
         />

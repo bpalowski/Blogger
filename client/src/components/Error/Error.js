@@ -1,9 +1,7 @@
 import React from 'react'
 import { Typography } from 'antd';
 import Nav from '../Nav/Nav';
-
 const { Title } = Typography;
-
 const Error = () => {
   return (
     <div>
