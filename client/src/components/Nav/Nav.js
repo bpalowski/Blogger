@@ -1,8 +1,10 @@
 import React from 'react'
-import { Row, Col, Layout } from 'antd';
 import { Link } from 'react-router-dom';
 
+import { Row, Col, Layout } from 'antd';
+
 const { Header } = Layout;
+
 const Nav = () => {
   return (
     <Header style={{ backgroundColor: "white" }}>
@@ -10,7 +12,6 @@ const Nav = () => {
         <Col span={2}><Link to="/">Blogger</Link></Col>
         <Col span={1} offset={20}><Link to="/login">Login</Link></Col>
       </Row>
-
     </Header>
   )
 }

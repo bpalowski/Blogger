@@ -2,24 +2,35 @@ import React, { Component } from 'react'
 import Nav from '../Nav/Nav'
 import { Card, Row, Col } from 'antd';
 import LoginInput from './LoginInput'
-import { REACT_APP_NOT_SECRET_CODE } from '../exports/index'
 
+import { REACT_APP_NOT_SECRET_CODE } from '../../exportEnv/index'
+import { withRouter, Redirect } from 'react-router-dom'
+
+import { connect } from 'react-redux'
+import { setLogin, updateUser } from '../../state/actions/index';
 
 import { getHashParams } from '../../utils/auth'
 
-// Pick Up
+
 
 class Login extends Component {
+
   componentDidMount() {
-    this.verifyAuth()
+    if (!this.props.authenticated) {
+      this.verifyAuth()
+    }
   }
+
   verifyAuth() {
     const params = getHashParams(REACT_APP_NOT_SECRET_CODE)
     if (params) {
-      console.log(true)
+      this.props.setLogin()
     }
   }
   render() {
+    if (this.props.authenticated === true) {
+      return <Redirect to="/user" />
+    }
     return (
       <>
         <Nav />
@@ -33,7 +44,10 @@ class Login extends Component {
       </ >
     )
   }
-
 }
 
-export default Login
+const mapStateToProps = state => ({
+  authenticated: state.userData.authenticated,
+});
+const mapDispatchToProps = { setLogin, updateUser };
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))
