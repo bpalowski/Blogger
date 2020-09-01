@@ -1,6 +1,5 @@
 import { INITIAL_LOGIN, AUTHENTICATED_LOGOUT_ACCESS } from "../exports/index";
 import axios from 'axios'
-//User
 
 export const setInitialLogin = () => {
   return {
@@ -8,7 +7,7 @@ export const setInitialLogin = () => {
   }
 };
 
-export const setLogut = () => {
+export const setLogout = () => {
   return {
     type: AUTHENTICATED_LOGOUT_ACCESS
   };
