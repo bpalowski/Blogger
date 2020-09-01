@@ -1,22 +1,10 @@
-import { GET_USER, AUTHENTICATED_LOGIN_ACCESS, AUTHENTICATED_LOGOUT_ACCESS, UPDATE_USER, UPDATE_SONG_STRING, UPDATE_TRACK_LIST, UPDATE_SONG_PLAY } from "../exports/index";
-
+import { INITIAL_LOGIN, AUTHENTICATED_LOGOUT_ACCESS } from "../exports/index";
+import axios from 'axios'
 //User
-export const getUserInfo = () => {
-  return {
-    type: GET_USER
-  };
-};
 
-export const updateUser = (data) => dispatch => {
-  dispatch({
-    type: UPDATE_USER,
-    payload: data
-  });
-};
-
-export const setLogin = () => {
+export const setInitialLogin = () => {
   return {
-    type: AUTHENTICATED_LOGIN_ACCESS,
+    type: INITIAL_LOGIN,
   }
 };
 
@@ -26,23 +14,11 @@ export const setLogut = () => {
   };
 };
 
-//Tracs
-export const setTracksList = (data) => dispatch => {
-
-  dispatch({
-    type: UPDATE_TRACK_LIST,
-    payload: data
-  });
-};
-export const stringTrac = (data) => dispatch => {
-  dispatch({
-    type: UPDATE_SONG_STRING,
-    payload: data
-  });
-};
-export const playpause = (data) => dispatch => {
-  dispatch({
-    type: UPDATE_SONG_PLAY,
-    payload: data
-  });
-};
+export const authenticatedLogin = () => {
+  return async (dispatch) => {
+    let res = await axios.get('auth/authlogin');
+    if (res.data.session_status === true) {
+      dispatch(setInitialLogin())
+    }
+  }
+}

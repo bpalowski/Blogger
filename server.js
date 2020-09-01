@@ -10,6 +10,9 @@ const session = require('express-session')
 const blog = require('./routes/blog')
 const auth = require('./routes/auth')
 
+const MongoStore = require('connect-mongo')(session)
+const mongoose = require('mongoose')
+
 const cors = require('cors')
 
 app.use((req, res, next) => {
@@ -31,7 +34,8 @@ if (process.env.NODE_ENV === "development") {
 app.use(session({
   secret: 'MrBig',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 // Passport middlewear

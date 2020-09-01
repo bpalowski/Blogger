@@ -1,8 +1,9 @@
 const router = require('express').Router()
+const { checkAuth, checkGuest } = require('../middleware/auth')
 
 // Login Auth
 router.get('/', (req, res) => {
-  res.send("hello")
+  console.log(req.isAuthenticated())
 })
 
 

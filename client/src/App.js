@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-// import PrivateRoute from './components/Auth/index'
+import PrivateRoute from './components/Auth/index'
 
 import { Route, Switch } from 'react-router-dom';
 import Main from './components/Main/Main'
 import Login from './components/Login/Login'
 import User from './components/User/User'
+import Nav from './components/Nav/Nav'
+
+
 import Error from './components/Error/Error'
 import './App.css';
 
 
 class App extends Component {
+
   render() {
     return (
       <div className="App" >
+        <Nav />
         <Switch>
           <Route
             exact
@@ -27,10 +32,10 @@ class App extends Component {
             component={Login}
           />
 
-
-          <Route
-            // authed={this.props.authenticated}
-            path='/User'
+          <PrivateRoute
+            exact
+            authed={this.props.authenticated}
+            path="/user"
             component={User}
           />
           <Route
