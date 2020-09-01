@@ -6,6 +6,7 @@ import PrivateRoute from './components/Auth/index'
 import { Route, Switch } from 'react-router-dom';
 import Main from './components/Main/Main'
 import Login from './components/Login/Login'
+
 import User from './components/User/User'
 import Nav from './components/Nav/Nav'
 

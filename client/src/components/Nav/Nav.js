@@ -1,14 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
+import axios from 'axios'
+
 import { UserOutlined } from '@ant-design/icons';
 
+
 import { Row, Col, Layout, Menu } from 'antd';
+import { setLogout } from '../../state/actions/index'
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
-const Nav = ({ authenticated }) => {
+const Nav = ({ authenticated, setLogout }) => {
+
+  const logout = () => {
+    return axios.get('auth/logout')
+      .then(res => {
+        setLogout()
+      }).catch(err => {
+        console.log(err)
+      })
+  }
+
+
+
   return authenticated ?
     (<Header style={{ backgroundColor: "white" }}>
       <Row justify="space-around">
@@ -31,7 +47,7 @@ const Nav = ({ authenticated }) => {
               style={{ width: 125 }}
             >
               <Menu.Item style={{ padding: 0 }} key="1"><Link to="/user">Account</Link></Menu.Item>
-              <Menu.Item style={{ padding: 0 }} key="2"><Link to="/">Logout</Link></Menu.Item>
+              <Menu.Item style={{ padding: 0 }} key="2"><Link to="/" onClick={(e) => logout()}>Logout</Link></Menu.Item>
             </SubMenu>
           </Menu >
         </Col>
@@ -50,5 +66,5 @@ const Nav = ({ authenticated }) => {
 const mapStateToProps = state => ({
   authenticated: state.userData.authenticated,
 });
-const mapDispatchToProps = {};
+const mapDispatchToProps = { setLogout };
 export default connect(mapStateToProps, mapDispatchToProps)(Nav)
