@@ -17,6 +17,14 @@ router.get('/authlogin', checkAuth, (req, res) => {
   res.status(200).json({ session_status: true })
 })
 
+router.get('/userdata', checkAuth, (req, res) => {
+  res.status(200).json({
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    image: req.user.image,
+  })
+})
+
 router.get('/logout', (req, res) => {
   req.logout()
   res.redirect('/')

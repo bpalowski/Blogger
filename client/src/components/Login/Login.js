@@ -7,7 +7,7 @@ import { REACT_APP_NOT_SECRET_CODE } from '../../exportEnv/index'
 import { withRouter, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { setInitialLogin } from '../../state/actions/index';
+import { setInitialLogin } from '../../state/actions/auth';
 
 import { getHashParams } from '../../utils/auth'
 
@@ -16,11 +16,11 @@ import { getHashParams } from '../../utils/auth'
 class Login extends Component {
 
   componentDidMount() {
-
     if (!this.props.authenticated) {
       this.verifyAuth()
     }
   }
+
 
   verifyAuth() {
     const params = getHashParams(REACT_APP_NOT_SECRET_CODE)
@@ -31,8 +31,9 @@ class Login extends Component {
 
   render() {
     if (this.props.authenticated === true) {
-      return <Redirect to="/" />
+      return <Redirect to="/user" />
     }
+
     return (
       <>
 

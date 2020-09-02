@@ -1,4 +1,4 @@
-import { AUTHENTICATED_LOGOUT_ACCESS, INITIAL_LOGIN } from "../exports/index";
+import { AUTHENTICATED_LOGOUT_ACCESS, INITIAL_LOGIN, USER_DATA } from "../exports/index";
 
 const INITIAL_STATE = {
   authenticated: false,
@@ -15,8 +15,15 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     case AUTHENTICATED_LOGOUT_ACCESS:
       return {
+        authenticated: state.authenticated = false,
+        userData: []
+      }
+
+    case USER_DATA:
+      return {
         ...state,
-        authenticated: state.authenticated = false
+        authenticated: state.authenticated = true,
+        userData: [...state.userData, action.payload]
       }
     default: return state;
   }
