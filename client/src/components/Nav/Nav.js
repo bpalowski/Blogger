@@ -7,17 +7,19 @@ import { UserOutlined } from '@ant-design/icons';
 
 
 import { Row, Col, Layout, Menu } from 'antd';
-import { setLogout } from '../../state/actions/index'
+import { setLogoutUser, setAdmin } from '../../state/actions/auth'
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
-const Nav = ({ authenticated, setLogout }) => {
+const Nav = ({ authenticated, setLogoutUser, setAdmin }) => {
 
   const logout = () => {
     return axios.get('auth/logout')
       .then(res => {
-        setLogout()
+        //set admin to false
+        setAdmin(false)
+        setLogoutUser()
       }).catch(err => {
         console.log(err)
       })
@@ -33,9 +35,8 @@ const Nav = ({ authenticated, setLogout }) => {
         </Col>
         <Col span={1} offset={17} style={{ paddingTop: 10, marginRight: 50 }}>
           <Menu
-            defaultSelectedKeys={['1']}
             mode="inline"
-            style={{ border: 'none' }}
+            style={{ border: 'none', color: 'dodgerblue' }}
             icon={<UserOutlined />}
           >
             <SubMenu
@@ -66,5 +67,5 @@ const Nav = ({ authenticated, setLogout }) => {
 const mapStateToProps = state => ({
   authenticated: state.userData.authenticated,
 });
-const mapDispatchToProps = { setLogout };
+const mapDispatchToProps = { setLogoutUser, setAdmin };
 export default connect(mapStateToProps, mapDispatchToProps)(Nav)

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setLogut } from '../../state/actions/index'
+import { setLogut } from '../../state/auth/index'
 
 
 function Logout({ setLogut }) {

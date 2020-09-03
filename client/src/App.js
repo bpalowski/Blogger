@@ -9,6 +9,7 @@ import Login from './components/Login/Login'
 
 import User from './components/User/User'
 import Nav from './components/Nav/Nav'
+import BlogForm from './components/Blog/BlogForm'
 
 
 import Error from './components/Error/Error'
@@ -38,6 +39,12 @@ class App extends Component {
             authed={this.props.authenticated}
             path="/user"
             component={User}
+          />
+          <PrivateRoute
+            exact
+            authed={this.props.authenticated}
+            path="/createblog"
+            component={BlogForm}
           />
           <Route
             component={Error}
