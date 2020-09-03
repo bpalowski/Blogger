@@ -1,32 +1,20 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import Blog from '../Blog/Blog'
 
 import { connect } from 'react-redux'
-import { authenticatedLogin } from '../../state/actions/index'
+import { authenticatedLogin, getUserData } from '../../state/actions/auth'
 
-import { Layout } from 'antd';
 
-const { Content, Footer } = Layout;
-
-class Main extends Component {
-
+class Main extends PureComponent {
   componentDidMount() {
-    if (!this.props.authenticated) {
-      this.props.authenticatedLogin()
+    if (this.props.authenticatedLogin) {
+      this.props.getUserData()
     }
-
   }
 
 
-
   render() {
-    return (
-      <Layout className="layout" >
-        <Content style={{ width: '100vw', height: '100vh' }}>
-          <div>All Public Blogs</div>
-        </Content>
-        <Footer style={{ textAlign: 'center', backgroundColor: 'dodgerblue' }}>Blogger ©2020</Footer>
-      </Layout >
-    )
+    return <Blog />
   }
 
 }
@@ -34,7 +22,8 @@ class Main extends Component {
 
 
 const mapStateToProps = state => ({
+  userData: state.userData.userData,
   authenticated: state.userData.authenticated,
 });
-const mapDispatchToProps = { authenticatedLogin };
+const mapDispatchToProps = { authenticatedLogin, getUserData };
 export default connect(mapStateToProps, mapDispatchToProps)(Main)
