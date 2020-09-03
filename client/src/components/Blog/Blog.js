@@ -9,7 +9,9 @@ import { Layout, Row, Col } from 'antd';
 const { Content, Footer } = Layout;
 
 class Blog extends Component {
-
+  // componentDidMount() {
+  //   this.props.getUserData()
+  // }
 
   render() {
     return (

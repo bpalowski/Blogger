@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 import { Card, Row, Col } from 'antd';
 import LoginInput from './LoginInput'
 
-import { REACT_APP_NOT_SECRET_CODE } from '../../exportEnv/index'
+import PasswordAdmin from '../Modal/PasswordAdmin'
+
+import { REACT_APP_NOT_SECRET_CODE, REACT_APP_NOT_SECRET_ADMIN } from '../../exportEnv/index'
 import { withRouter, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
@@ -14,6 +16,12 @@ import { getHashParams } from '../../utils/auth'
 
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false
+    }
+  }
 
   componentDidMount() {
     if (!this.props.authenticated) {
@@ -23,34 +31,51 @@ class Login extends Component {
 
 
   verifyAuth() {
-    const params = getHashParams(REACT_APP_NOT_SECRET_CODE)
-    if (params) {
+    const params = getHashParams(REACT_APP_NOT_SECRET_ADMIN, REACT_APP_NOT_SECRET_CODE)
+
+
+    if (params === "admin") {
+      this.setState({ modal: true })
+    }
+
+    if (params === "user") {
       this.props.setInitialLogin()
     }
+
   }
 
+
+  view() {
+
+    if (this.state.modal === true) {
+      return <PasswordAdmin history={this.props.history} />
+    }
+
+    return <Row justify="center" style={{ paddingTop: 50, height: "100vh", backgroundColor: '#e6e6e6' }}>
+      <Col style={{ paddingTop: 10 }}>
+        <Card style={{ width: 300, marginTop: 250, height: 80, color: "white", backgroundColor: '#de5246' }}>
+          <LoginInput />
+        </Card>
+      </Col>
+    </Row>
+
+  }
+
+
+
   render() {
-    if (this.props.authenticated === true) {
+    if (this.props.authenticated === true && this.props.admin === false) {
       return <Redirect to="/user" />
     }
 
-    return (
-      <>
+    return this.view()
 
-        <Row justify="center" style={{ paddingTop: 50, height: "100vh", backgroundColor: '#e6e6e6' }}>
-          <Col style={{ paddingTop: 10 }}>
-            <Card style={{ width: 300, marginTop: 250, height: 80, color: "white", backgroundColor: '#de5246' }}>
-              <LoginInput />
-            </Card>
-          </Col>
-        </Row>
-      </ >
-    )
   }
 }
 
 const mapStateToProps = state => ({
   authenticated: state.userData.authenticated,
+  admin: state.userData.admin
 });
 const mapDispatchToProps = { setInitialLogin };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))

@@ -1,28 +1,23 @@
-// import { } from "../exports/index";
+import { SEND_BLOGGER_DATA } from "../exports/index";
 
-// const INITIAL_STATE = {
-//   authenticated: false,
+const INITIAL_STATE = {
+  bloggerData: [],
+  allBlogs: []
+}
 
-//   bloggerData: [],
-// }
+const reducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
 
-// const reducer = (state = INITIAL_STATE, action) => {
-//   switch (action.type) {
+    case SEND_BLOGGER_DATA:
+      return {
+        ...state,
+        bloggerData: [...state.bloggerData, action.payload]
+      }
 
-//     case INITIAL_LOGIN:
-//       return {
-//         ...state,
-//         authenticated: state.authenticated = true
-//       }
-//     case AUTHENTICATED_LOGOUT_ACCESS:
-//       return {
-//         ...state,
-//         authenticated: state.authenticated = false
-//       }
-//     default: return state;
-//   }
+    default: return state;
+  }
 
-// }
+}
 
 
-// export default reducer
+export default reducer
