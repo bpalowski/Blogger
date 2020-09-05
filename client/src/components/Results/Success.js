@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Button, Result } from 'antd';
 
 
@@ -15,9 +15,7 @@ const Success = ({ update }) => {
       status="success"
       title="Successfully Created a Blog"
       extra={[
-
         <Button key="#" type="primary" onClick={createBlogs}>Click to Create Blog</Button>
-
       ]}
     />
   )

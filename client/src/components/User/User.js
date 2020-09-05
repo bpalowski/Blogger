@@ -6,6 +6,28 @@ import { getUserData } from '../../state/actions/auth'
 import { Layout, Spin, Button, Card, Row, Col } from 'antd';
 const { Content, Footer } = Layout;
 
+
+const styles = {
+  constentStyle: {
+    width: '100vw', height: '100vh'
+  },
+  rowStyle: {
+    paddingTop: 140
+  },
+  cardStyle: {
+    margin: 20, padding: 50, boxShadow: "0px 1px 5px 0px #676767"
+  },
+  cardStyle2: {
+    margin: 20, padding: 50, boxShadow: "0px 1px 5px 0px #676767"
+  },
+  cardStyle3: {
+    margin: 20, padding: 50, boxShadow: "0px 1px 5px 0px #676767"
+  },
+  footer: {
+    textAlign: 'center', backgroundColor: 'dodgerblue'
+  }
+}
+
 class User extends PureComponent {
   componentDidMount() {
     if (this.props.userData.length === 0) {
@@ -24,11 +46,11 @@ class User extends PureComponent {
     }
     return (
       <Layout className="layout" >
-        <Content style={{ width: '100vw', height: '100vh' }}>
+        <Content style={styles.constentStyle}>
 
-          <Row justify="space-around" align="middle" style={{ paddingTop: 140 }}>
+          <Row justify="space-around" align="middle" style={styles.rowStyle}>
             <Col>
-              <Card style={{ margin: 20, padding: 50, boxShadow: "0px 1px 5px 0px #676767" }}>
+              <Card style={styles.cardStyle}>
                 <Link to="/createblog">
                   <Button type="primary" >Create Blog</Button>
                 </Link>
@@ -36,20 +58,20 @@ class User extends PureComponent {
             </Col>
 
             <Col>
-              <Card style={{ margin: 20, padding: 50, boxShadow: "0px 1px 5px 0px #676767" }}>
+              <Card style={styles.cardStyle2}>
                 <Button type="danger">ALL Blogs</Button>
               </Card>
             </Col>
 
             <Col>
-              <Card style={{ margin: 20, padding: 50, boxShadow: "0px 1px 5px 0px #676767" }}>
+              <Card style={styles.cardStyle3}>
                 <Button type="primary">ALL Users</Button>
               </Card>
             </Col>
           </Row>
 
         </Content >
-        <Footer style={{ textAlign: 'center', backgroundColor: 'dodgerblue' }}>Blogger ©2020</Footer>
+        <Footer style={styles.footer}>Blogger ©2020</Footer>
       </Layout >
     )
   }

@@ -12,6 +12,22 @@ import { setLogoutUser, setAdmin } from '../../state/actions/auth'
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
+const styles = {
+  headerStyles: {
+    backgroundColor: "white"
+  },
+  menuStyle: {
+    border: 'none', color: 'dodgerblue'
+  },
+  subStyle: {
+    width: 125
+  },
+  menuItemStyle: {
+    padding: 0
+  }
+}
+
+
 const Nav = ({ authenticated, setLogoutUser, setAdmin }) => {
 
   const logout = () => {
@@ -28,7 +44,7 @@ const Nav = ({ authenticated, setLogoutUser, setAdmin }) => {
 
 
   return authenticated ?
-    (<Header style={{ backgroundColor: "white" }}>
+    (<Header style={styles.headerStyles}>
       <Row justify="space-around">
         <Col span={1}>
           <Link to="/">Blogger</Link>
@@ -36,7 +52,7 @@ const Nav = ({ authenticated, setLogoutUser, setAdmin }) => {
         <Col span={1} offset={17} style={{ paddingTop: 10, marginRight: 50 }}>
           <Menu
             mode="inline"
-            style={{ border: 'none', color: 'dodgerblue' }}
+            style={styles.menuStyle}
             icon={<UserOutlined />}
           >
             <SubMenu
@@ -45,10 +61,10 @@ const Nav = ({ authenticated, setLogoutUser, setAdmin }) => {
               key="sub1"
               title={"Profile"
               }
-              style={{ width: 125 }}
+              style={styles.subStyle}
             >
-              <Menu.Item style={{ padding: 0 }} key="1"><Link to="/user">Account</Link></Menu.Item>
-              <Menu.Item style={{ padding: 0 }} key="2"><Link to="/" onClick={(e) => logout()}>Logout</Link></Menu.Item>
+              <Menu.Item style={styles.menuItemStyle} key="1"><Link to="/user">Account</Link></Menu.Item>
+              <Menu.Item style={styles.menuItemStyle} key="2"><Link to="/" onClick={(e) => logout()}>Logout</Link></Menu.Item>
             </SubMenu>
           </Menu >
         </Col>

@@ -7,7 +7,18 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { authenticatedLogin } from '../../state/actions/auth';
 
 
-
+const styles = {
+  rowStyles: {
+    height: "30vh"
+  },
+  cardStyles: {
+    border: "none", height: "20vh", width: "70%"
+  },
+  formStyle: { border: 'none', textAlign: 'center' },
+  buttonStyle: {
+    marginTop: 10
+  }
+}
 
 
 
@@ -16,9 +27,9 @@ const PasswordAdmin = ({ history, authenticatedLogin }) => {
   const [spinner, spinModal] = useState(false)
   const [form] = Form.useForm();
 
-  const handleOk = e => {
-    console.log("Clicked");
-  };
+  // const handleOk = e => {
+  //   console.log("Clicked");
+  // };
 
   const handleCancel = e => {
     history.push('/login')
@@ -49,29 +60,27 @@ const PasswordAdmin = ({ history, authenticatedLogin }) => {
   return (
     <>
       <Modal
-
-        confirmLoading={false}
         closable={false}
         footer={null}
         visible={visible}
         onCancel={(e) => handleCancel(e)}
-        style={{}}
+
         confirmLoading={spinner}
         destroyOnClose={true}
       >
-        <Row justify="center" style={{ height: "30vh" }}>
+        <Row justify="center" style={styles.rowStyles}>
 
-          <Card style={{ border: "none", height: "20vh", width: "70%" }}>
+          <Card style={styles.cardStyles}>
 
             <Form
               form={form}
-              style={{ border: 'none', textAlign: 'center' }}
+              style={styles.formStyle}
               size="middle"
               onFinish={onFinish}
             >
 
               <Form.Item
-                style={{}}
+
                 name='password'
                 rules={[{ required: true, message: 'Password is required' }]}
               >
@@ -81,7 +90,7 @@ const PasswordAdmin = ({ history, authenticatedLogin }) => {
                   iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                 />
               </Form.Item>
-              <Button size="large" htmlType="submit" style={{ marginTop: 10 }} type="primary">Admin login</Button>
+              <Button size="large" htmlType="submit" style={styles.buttonStyle} type="primary">Admin login</Button>
 
             </Form>
           </Card>
