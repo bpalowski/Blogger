@@ -23,7 +23,6 @@ router.get('/google/callback', pass.authenticate('google', {
   if (admins) {
     return res.redirect(`http://localhost:3000/login/#loginpassword`)
   }
-
   return res.redirect(`http://localhost:3000/login/#${res.statusCode}`)
 });
 

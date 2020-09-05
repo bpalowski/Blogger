@@ -11,9 +11,21 @@ import { withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setInitialLogin } from '../../state/actions/auth';
 
+
 import { getHashParams } from '../../utils/auth'
+import axios from 'axios'
 
-
+const styles = {
+  rowStyle: {
+    paddingTop: 50, height: "100vh", backgroundColor: '#e6e6e6'
+  },
+  colStyle: {
+    paddingTop: 10
+  },
+  cardStyle: {
+    width: 300, marginTop: 250, height: 80, color: "white", backgroundColor: '#de5246'
+  }
+}
 
 class Login extends Component {
   constructor(props) {
@@ -30,16 +42,20 @@ class Login extends Component {
   }
 
 
+
+
   verifyAuth() {
     const params = getHashParams(REACT_APP_NOT_SECRET_ADMIN, REACT_APP_NOT_SECRET_CODE)
 
 
     if (params === "admin") {
       this.setState({ modal: true })
+
     }
 
     if (params === "user") {
       this.props.setInitialLogin()
+
     }
 
   }
@@ -51,9 +67,9 @@ class Login extends Component {
       return <PasswordAdmin history={this.props.history} />
     }
 
-    return <Row justify="center" style={{ paddingTop: 50, height: "100vh", backgroundColor: '#e6e6e6' }}>
-      <Col style={{ paddingTop: 10 }}>
-        <Card style={{ width: 300, marginTop: 250, height: 80, color: "white", backgroundColor: '#de5246' }}>
+    return <Row justify="center" style={styles.rowStyle}>
+      <Col style={styles.colStyle}>
+        <Card style={styles.cardStyle}>
           <LoginInput />
         </Card>
       </Col>
@@ -75,7 +91,8 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   authenticated: state.userData.authenticated,
-  admin: state.userData.admin
+  admin: state.userData.admin,
+  blogData: state.bloggerData,
 });
 const mapDispatchToProps = { setInitialLogin };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))

@@ -1,38 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-import { authenticatedLogin, getUserData } from '../../state/actions/auth'
+import { getUserData } from '../../state/actions/auth'
+import { publicBloggs } from '../.././state/actions/blogger'
 
-import { Layout, Row, Col } from 'antd';
+import { Col } from 'antd';
 
 
-const { Content, Footer } = Layout;
 
-class Blog extends Component {
-  // componentDidMount() {
-  //   this.props.getUserData()
-  // }
+const Blog = ({ obj }) => {
 
-  render() {
-    return (
-      <Layout className="layout" >
-        <Content style={{ width: '100vw', height: '100vh' }}>
-          <Row justify="center">
-            <Col>
-              <h1>Hello</h1>
-            </Col>
-          </Row>
-        </Content>
-        <Footer style={{ textAlign: 'center', backgroundColor: 'dodgerblue' }}>Blogger ©2020</Footer>
-      </Layout >
-    )
-  }
-
+  return <Col key={obj._id}>
+    <h1>{obj.title}</h1>
+    <h5>{obj.displayName}</h5>
+    <p>{obj.bodyText}</p>
+  </Col>
 }
 
 
 const mapStateToProps = state => ({
-  userData: state.userData.userData,
+  allBlogs: state.bloggerData.allBlogs,
 });
-const mapDispatchToProps = { authenticatedLogin, getUserData };
+const mapDispatchToProps = { getUserData, publicBloggs };
 export default connect(mapStateToProps, mapDispatchToProps)(Blog)

@@ -1,26 +1,20 @@
 import { SEND_BLOGGER_DATA } from "../exports/index";
 import axios from 'axios'
 
-export const setBlog = () => {
+export const publicBloggs = (data) => {
   return {
     type: SEND_BLOGGER_DATA,
+    payload: data
   }
 };
 
-export const blogSubmitForm = (data) => {
-  const { title, bodyText } = data
-  return async (dispatch) => {
-    await axios.post('blog/createblog', {
-      title,
-      bodyText
-    }).then(res => {
-      console.log(res)
-    }).catch(err => {
-      console.log(err)
-    })
-
-  }
-}
+// export const blogSubmitForm = async (data) => {
+//   const { title, bodyText } = data;
+//   await axios.post('blog/createblog', {
+//     title,
+//     bodyText
+//   })
+// }
 
 
 // export const setMyBlog = () => {
