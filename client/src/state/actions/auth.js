@@ -21,9 +21,9 @@ export const setLogoutUser = () => {
 };
 
 export const authenticatedLogin = () => {
+
   return async (dispatch) => {
     let res = await axios.get('auth/authlogin');
-    console.log(res)
     if (res.data.session_status === true && res.data.admin === true) {
       dispatch(setInitialLogin())
       dispatch(setAdmin(true))

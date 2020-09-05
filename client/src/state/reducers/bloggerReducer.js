@@ -11,7 +11,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case SEND_BLOGGER_DATA:
       return {
         ...state,
-        bloggerData: [...state.bloggerData, action.payload]
+        allBlogs: [...state.allBlogs, action.payload]
       }
 
     default: return state;
