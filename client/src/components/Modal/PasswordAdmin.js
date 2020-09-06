@@ -7,18 +7,6 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { authenticatedLogin } from '../../state/actions/auth';
 
 
-const styles = {
-  rowStyles: {
-    height: "30vh"
-  },
-  cardStyles: {
-    border: "none", height: "20vh", width: "70%"
-  },
-  formStyle: { border: 'none', textAlign: 'center' },
-  buttonStyle: {
-    marginTop: 10
-  }
-}
 
 
 
@@ -26,6 +14,19 @@ const PasswordAdmin = ({ history, authenticatedLogin }) => {
   const [visible, setModal] = useState(true)
   const [spinner, spinModal] = useState(false)
   const [form] = Form.useForm();
+
+  const styles = {
+    rowStyles: {
+      height: "30vh"
+    },
+    cardStyles: {
+      border: "none", height: "20vh", width: "70%"
+    },
+    formStyle: { border: 'none', textAlign: 'center' },
+    buttonStyle: {
+      marginTop: 10
+    }
+  }
 
   // const handleOk = e => {
   //   console.log("Clicked");

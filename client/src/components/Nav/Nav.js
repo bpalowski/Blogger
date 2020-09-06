@@ -12,24 +12,24 @@ import { setLogoutUser, setAdmin } from '../../state/actions/auth'
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
-const styles = {
-  headerStyles: {
-    backgroundColor: "white"
-  },
-  menuStyle: {
-    border: 'none', color: 'dodgerblue'
-  },
-  subStyle: {
-    width: 125
-  },
-  menuItemStyle: {
-    padding: 0
-  }
-}
+
 
 
 const Nav = ({ authenticated, setLogoutUser, setAdmin }) => {
-
+  const styles = {
+    headerStyles: {
+      backgroundColor: "white"
+    },
+    menuStyle: {
+      border: 'none', color: 'dodgerblue'
+    },
+    subStyle: {
+      width: 125
+    },
+    menuItemStyle: {
+      padding: 0
+    }
+  }
   const logout = () => {
     return axios.get('auth/logout')
       .then(res => {

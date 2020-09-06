@@ -1,18 +1,19 @@
 import React, { PureComponent } from 'react'
 import axios from 'axios';
-import { Layout, Row, Col, Card } from 'antd';
+import { Layout } from 'antd';
 
 import { connect } from 'react-redux'
 import { authenticatedLogin, getUserData } from '../../state/actions/auth'
 import { publicBloggs } from '../.././state/actions/blogger'
 import BlogBody from '../Blog/BlogBody';
+import Nav from '../Nav/Nav'
 const { Content, Footer } = Layout;
 const styles = {
   rootContainer: {
     backgroundColor: "tomato",
     height: "100%",
     margin: "20px",
-    height: 'auto'
+
   },
   contentStyle: {
     height: "65%",
@@ -22,9 +23,6 @@ const styles = {
     textAlign: 'center', backgroundColor: 'dodgerblue'
   }
 };
-
-
-
 
 class Main extends PureComponent {
 
@@ -42,24 +40,26 @@ class Main extends PureComponent {
       let res = await axios.get('blog/publicblogs');
       this.props.publicBloggs(res.data)
     }
-
   }
 
   render() {
-    return <Layout styles className="layout" style={styles.rootContainer}>
+
+
+    return <div><Nav /><Layout className="layout" style={styles.rootContainer}>
+
       <Content style={styles.contentStyle}>
         <BlogBody />
       </Content>
 
 
       <Footer style={styles.footStyle}>Blogger ©2020</Footer>
-    </Layout >
+    </Layout ></div>
 
   }
 }
 const mapStateToProps = state => ({
-  allBlogs: state.bloggerData.allBlogs,
-  blogData: state.bloggerData.blogData,
+  allBlogs: state.bloggerData.publicBlogs,
+  myBlogs: state.bloggerData.myBlogs,
 
   userData: state.userData.userData,
   authenticated: state.userData.authenticated,

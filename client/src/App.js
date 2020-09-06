@@ -10,7 +10,7 @@ import Login from './components/Login/Login'
 import User from './components/User/User'
 import Nav from './components/Nav/Nav'
 import BlogForm from './components/Blog/BlogForm'
-
+import Blog from './components/Blog/Blog'
 
 import Error from './components/Error/Error'
 import './App.css';
@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" >
-        <Nav />
+
         <Switch>
           <Route
             exact
@@ -32,6 +32,10 @@ class App extends Component {
             exact
             path="/login"
             component={Login}
+          />
+          <Route
+            path="/blog"
+            component={Blog}
           />
 
           <PrivateRoute
