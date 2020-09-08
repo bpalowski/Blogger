@@ -2,19 +2,20 @@ import React from 'react'
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
 
-const styles = {
-  googleStyle: {
-    color: 'white', fontSize: '42px'
-  },
-  styleCol: {
-    fontSize: '25px'
-  },
-  anchorTag: {
-    color: 'white'
-  }
-}
+
 
 const LoginInput = () => {
+  const styles = {
+    googleStyle: {
+      color: 'white', fontSize: '42px'
+    },
+    styleCol: {
+      fontSize: '25px'
+    },
+    anchorTag: {
+      color: 'white'
+    }
+  }
   return (
     <Row justify="center" >
       <Col span={1} >

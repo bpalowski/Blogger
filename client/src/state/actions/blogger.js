@@ -1,5 +1,5 @@
-import { SEND_BLOGGER_DATA } from "../exports/index";
-import axios from 'axios'
+import { SEND_BLOGGER_DATA, SEND_MY_BLOGS } from "../exports/index";
+// import axios from 'axios'
 
 export const publicBloggs = (data) => {
   return {
@@ -17,13 +17,10 @@ export const publicBloggs = (data) => {
 // }
 
 
-// export const setMyBlog = () => {
-//   // console.log("hello")
-//   return async (dispatch) => {
-//     let res = await axios.get('auth/userdata');
-//     dispatch({
-//       type: SEND_BLOGGER_DATA,
-//       payload: res.data
-//     })
-//   }
-// }
+export const setMyBlog = (res) => {
+  console.log(res)
+  return {
+    type: SEND_MY_BLOGS,
+    payload: res
+  }
+}

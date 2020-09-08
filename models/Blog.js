@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 
-const blogger = new mongoose.Schema({
-  _id: { id: mongoose.Schema.Types.ObjectId },
-  name: { type: String },
-  timeStamp: { type: Number }
+// const blogger = new mongoose.Schema({
+//   _id: { id: mongoose.Schema.Types.ObjectId },
+//   name: { type: String },
+//   timeStamp: { type: Number }
 
-})
-module.exports = mongoose.model("blogger", blogger);
+// })
+// module.exports = mongoose.model("blogger", blogger);
 
 const BlogSchema = new mongoose.Schema({
   id: mongoose.Schema.ObjectId,
@@ -36,8 +36,6 @@ const BlogSchema = new mongoose.Schema({
     default: 'active',
     enum: ['active', 'nonactive']
   },
-
-
   displayName: {
     type: String,
     required: true
@@ -51,9 +49,14 @@ const BlogSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // image: {
-  //   type: String
-  // },
+  catagory: {
+    type: String,
+    required: true,
+    default: 'other'
+  },
+  image: {
+    type: Buffer,
+  },
   createdAt: {
     type: Date,
     default: Date.now

@@ -1,7 +1,8 @@
-import { SEND_BLOGGER_DATA } from "../exports/index";
+import { SEND_BLOGGER_DATA, SEND_MY_BLOGS } from "../exports/index";
 
 const INITIAL_STATE = {
-  bloggerData: [],
+  publicBlogs: [],
+  myBlogs: [],
   allBlogs: []
 }
 
@@ -11,7 +12,13 @@ const reducer = (state = INITIAL_STATE, action) => {
     case SEND_BLOGGER_DATA:
       return {
         ...state,
-        allBlogs: [...state.allBlogs, action.payload]
+        publicBlogs: [...state.publicBlogs, action.payload]
+      }
+
+    case SEND_MY_BLOGS:
+      return {
+        ...state,
+        myBlogs: [...state.myBlogs, action.payload]
       }
 
     default: return state;
