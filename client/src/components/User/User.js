@@ -63,7 +63,7 @@ class User extends PureComponent {
   }
 
   componentDidMount() {
-    console.log(this.state.blogData)
+
     this.getMyBlogs()
     if (this.props.userData.length === 0) {
       this.props.getUserData()
@@ -146,7 +146,6 @@ class User extends PureComponent {
   }
 
   render() {
-    console.log(this.state.blogData)
     if (this.state.blogData.length > 0) {
       return <Redirect to={{ pathname: `/blog/${this.state.blogData[0].title}`, blogObj: this.state.blogData[0] }} />
     }

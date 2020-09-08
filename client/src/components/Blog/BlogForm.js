@@ -5,12 +5,15 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import Nav from '../Nav/Nav'
 import BlogSelect from '../Blog/BlogSelect'
-import { LoadingOutlined, PlusOutlined, CloudUploadOutlined } from '@ant-design/icons';
+
+import { LoadingOutlined, InboxOutlined, PlusOutlined, CloudUploadOutlined, CloseCircleOutlined } from '@ant-design/icons';
+
 
 
 import { Row, Col, Form, Input, Button, message, Select, Upload } from 'antd';
 
 const { Option } = Select;
+const { Dragger } = Upload;
 
 
 const BlogForm = ({ dataset }) => {
@@ -20,9 +23,10 @@ const BlogForm = ({ dataset }) => {
   const [failSent, updateFail] = useState(false)
   const [setError, updateError] = useState(false)
   const [imageUrl, updateImageURL] = useState()
+  const [imageDisplay, updateImageDisplay] = useState()
   const [loading, updateLoading] = useState()
-  const { getFieldDecorator } = form
-  useEffect(() => { })
+
+
   const styles = {
     rowStyle: {
       backgroundColor: "", height: "200vh", width: '100vw', marginTop: "50px"
@@ -59,63 +63,17 @@ const BlogForm = ({ dataset }) => {
     }
   }
 
-  const onFinish = values => {
-    console.log(values)
-    blogSubmitForm(values)
-  };
 
-  // Images
-  const getBase64 = (img, callback) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-  }
+  const onFinish = data => {
+    const { title, bodyText } = data
+    const info = new FormData()
+    info.append('file', imageUrl);
+    info.append('title', title)
+    info.append('catagory', catagory)
+    info.append('bodyText', bodyText)
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-  const uploadButton = () => {
-    return <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  };
-
-  const beforeUpload = (file) => {
-    console.log(file)
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
-    }
-    return isJpgOrPng && isLt2M;
-  }
-
-
-  const handleChange = async info => {
-    if (info.file.status === 'uploading') {
-      return await updateLoading(true)
-    }
-    if (info.file.status === 'done') {
-      getBase64(info.file.originFileObj, imageUrl =>
-        updateImageURL(imageUrl),
-        updateLoading(false)
-      )
-    }
-  };
-  //
-
-  const blogSubmitForm = async (data) => {
-    // const { title, bodyText, } = data;
-    const imageUrlToFile = new FormData();
-    const image = imageUrl ? imageUrl : ''
-
-    imageUrlToFile.append('file', imageUrl);
-
-    // const selected = !catagory ? "other" : catagory
-
-
-    await axios.post('blog/createblog', imageUrlToFile)
+    axios.post('blog/createblog', info, config)
       .then(responseArr => {
         if (responseArr.data.success_blog === true) {
           form.resetFields()
@@ -123,20 +81,46 @@ const BlogForm = ({ dataset }) => {
         }
         form.resetFields()
       }).catch(err => {
-
         return form.resetFields(),
           updateFail(true)
       })
+  };
 
-
-
+  const getBase64 = (img, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
   }
 
-  const dummyRequest = ({ file, onSuccess }) => {
-    setTimeout(() => {
-      onSuccess("ok");
-    }, 0);
+  const props = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    onChange(info) {
+      console.log(info)
+      const { status } = info.file;
+      if (status === 'done') {
+
+        updateImageURL(info.file.originFileObj)
+        getBase64(info.file.originFileObj, imageUrl => {
+          updateImageDisplay(imageUrl)
+        })
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+    customRequest({ file, onSuccess }) {
+      setTimeout(() => {
+        onSuccess("ok");
+      }, 0);
+    },
   };
+
+  const removeImage = () => {
+    updateImageDisplay()
+    updateImageURL()
+  }
+
 
   if (failSent) {
     return <Error505 update={updateFail} />
@@ -155,31 +139,37 @@ const BlogForm = ({ dataset }) => {
                 style={styles.borderLess}
                 size="middle"
                 layout="vertical"
-                onFinish={onFinish}>
+                onFinish={onFinish}
+              >
 
-                <Row justify="space-around" style={styles.borderLess}>
+                <Row justify="center" style={styles.borderLess}>
                   <Col style={styles.ImageCol}>
                     <Form.Item>
-                      <Upload
-                        accept="image/*"
-                        method="POST"
-                        style={styles.ImageCol}
-                        name="file"
-                        listType="picture-card"
-                        className="avatar-uploader"
-                        showUploadList={false}
-                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                        // beforeUpload={false}
-                        // onChange={handleChange}
-                        customRequest={dummyRequest}
-                      >
-                        <Button>
-                          <CloudUploadOutlined />
-                        </Button>
-                        {/* {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton()} */}
-                      </Upload >
+                      <Input.Group >
+
+                        {imageDisplay ?
+                          <>
+                            <Row>
+                              <Col>
+                                <CloseCircleOutlined style={{ fontSize: "25px", color: "#d11a2a" }} onClick={removeImage} />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col>
+                                <img src={imageDisplay} alt="avatar" style={{ width: '80%' }} />
+                              </Col>
+                            </Row>
+                          </>
+                          : <Dragger {...props} style={{ padding: "10px", width: "150px" }} >
+                            <p className="ant-upload-drag-icon">
+                              <InboxOutlined />
+                            </p>
+                          </Dragger>}
+                      </Input.Group>
                     </Form.Item>
                   </Col>
+                </Row>
+                <Row justify="space-around">
                   <Col>
                     <Form.Item required >
                       <Input.Group >

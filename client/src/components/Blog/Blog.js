@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { getUserData } from '../../state/actions/auth'
 import { publicBloggs } from '../.././state/actions/blogger'
+import { arrayBufferToBase64 } from '../../utils/buffer'
 import Nav from '../Nav/Nav'
 
-import { Col, Layout, Menu, Breadcrumb, Spin, Row } from 'antd';
+import { Col, Layout, Menu, Breadcrumb, Spin, Row, Card } from 'antd';
 
 
 const { Header, Content, Footer } = Layout;
@@ -20,23 +21,43 @@ const styles = {
     backgroundColor: "grey",
     height: "15vh",
   },
+
   rowStyle2: {
-    height: "30vh",
+    // height: "auto",
+    // width: "auto",
     marginTop: "30px",
-    backgroundColor: "grey"
+
+  },
+  col2: {
+    // padding: "10px"
   },
   rowStyle3: {
     height: "25vh",
     marginTop: "40px",
     backgroundColor: "grey"
+  },
+  card: {
+    // width: "55vw",
+    // height: "35vw"
+  },
+  img: {
+    maxWidth: "100%"
   }
 
 }
 
 const Blog = (props) => {
-
+  const [img, updateImg] = useState()
   const { blogObj } = props.location
-  useEffect(() => { })
+
+
+  useEffect(() => {
+    if (blogObj) {
+      updateImg(arrayBufferToBase64(blogObj.image.data))
+    }
+
+
+  })
 
   return (
     <>
@@ -52,8 +73,10 @@ const Blog = (props) => {
 
           </Row>
           <Row style={styles.rowStyle2} justify="space-around">
-            <Col>
-              <h1>Image</h1>
+            <Col style={styles.col2}>
+              <Card style={styles.card}>
+                <img style={styles.img} src={`data:image/jpeg;base64,${img}`} />
+              </Card>
             </Col>
 
           </Row>
