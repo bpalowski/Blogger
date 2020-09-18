@@ -1,6 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
 const User = require('../models/User')
+const Admin = require('../models/Admin')
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = (passport) => {
@@ -11,6 +12,8 @@ module.exports = (passport) => {
       callbackURL: '/auth/google/callback',
     },
       async (accessToke, refreshToken, profile, callback) => {
+        const admins = await Admin.findOne({ email: profile.emails[0].value }).exec() ? true : false
+
         const newUser = {
           googleId: profile.id,
           email: profile.emails[0].value,
@@ -18,8 +21,9 @@ module.exports = (passport) => {
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
           image: profile.photos[0].value,
-          admin: false
+          admin: admins
         }
+
         try {
           let user = await User.findOne({ googleId: profile.id })
           if (user) {

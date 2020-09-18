@@ -1,3 +1,4 @@
+
 const express = require('express')
 const app = express()
 const passport = require('passport')
@@ -13,9 +14,14 @@ const auth = require('./routes/auth')
 const MongoStore = require('connect-mongo')(session)
 const mongoose = require('mongoose')
 
+const methodoveride = require('method-override')
+const { setServerIO } = require('./socket');
 const cors = require('cors')
+require('dotenv').config()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(methodoveride('_method'))
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
@@ -57,4 +63,6 @@ app.use('/blog', blog)
 
 // server
 const PORT = process.env.PORT || 5000
-app.listen(PORT, console.log(`Listening to ${PORT} on ${process.env.NODE_ENV} enviroment `))
+
+//Sockit
+setServerIO(app.listen(PORT, console.log(`Listening to ${PORT} on ${process.env.NODE_ENV} enviroment `)))

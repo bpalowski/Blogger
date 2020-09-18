@@ -1,5 +1,6 @@
-import { SEND_BLOGGER_DATA } from "../exports/index";
+import { SET_BLOG, SEND_BLOGGER_DATA, SEND_MY_BLOGS, UPDATE_BLOGGER_DATA } from "../exports/index";
 import axios from 'axios'
+
 
 export const publicBloggs = (data) => {
   return {
@@ -8,22 +9,38 @@ export const publicBloggs = (data) => {
   }
 };
 
-// export const blogSubmitForm = async (data) => {
-//   const { title, bodyText } = data;
-//   await axios.post('blog/createblog', {
-//     title,
-//     bodyText
-//   })
-// }
+export const updateBloggs = (data) => {
+  return {
+    type: UPDATE_BLOGGER_DATA,
+    payload: data
+  }
+};
 
 
-// export const setMyBlog = () => {
-//   // console.log("hello")
-//   return async (dispatch) => {
-//     let res = await axios.get('auth/userdata');
-//     dispatch({
-//       type: SEND_BLOGGER_DATA,
-//       payload: res.data
-//     })
-//   }
-// }
+export const setMyBlog = (res) => {
+  return {
+    type: SEND_MY_BLOGS,
+    payload: res
+  }
+}
+
+export const setBlog = (data) => {
+  return {
+    type: SET_BLOG,
+    payload: data
+  }
+}
+
+
+
+export const setPublicBlogs = () => dispatch => {
+  return axios.get('/blog/publicblogs')
+    .then(res => {
+      dispatch(publicBloggs(res.data));
+    }).then(res => {
+      return true
+    }).catch(err => {
+      return false
+    })
+
+}

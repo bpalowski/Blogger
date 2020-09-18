@@ -1,7 +1,7 @@
 import React from 'react'
-// import { Link } from 'react-router-dom';
-import { Button, Result } from 'antd';
 
+import { Button, Result } from 'antd';
+import Nav from '../Nav/Nav'
 
 
 const Success = ({ update }) => {
@@ -10,14 +10,17 @@ const Success = ({ update }) => {
   }
 
   return (
-    <Result
-      key="1"
-      status="success"
-      title="Successfully Created a Blog"
-      extra={[
-        <Button key="#" type="primary" onClick={createBlogs}>Click to Create Blog</Button>
-      ]}
-    />
+    <div>
+      <Nav />
+      <Result
+        key="1"
+        status="success"
+        title="Successfully Created a Blog"
+        extra={[
+          <Button key="#" type="primary" onClick={createBlogs}>Click to Create Blog</Button>
+        ]}
+      />
+    </div>
   )
 }
 

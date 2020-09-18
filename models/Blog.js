@@ -1,12 +1,6 @@
 const mongoose = require('mongoose')
 
-const blogger = new mongoose.Schema({
-  _id: { id: mongoose.Schema.Types.ObjectId },
-  name: { type: String },
-  timeStamp: { type: Number }
 
-})
-module.exports = mongoose.model("blogger", blogger);
 
 const BlogSchema = new mongoose.Schema({
   id: mongoose.Schema.ObjectId,
@@ -14,29 +8,8 @@ const BlogSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  // bloggerlist: {
-  //   blogger: [blogger]
-  // },
-  // postedBy: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User'
-  // },
-  // lists: {
-  //   list: [mongoose.Schema.Types.ObjectId],
-  // },
-  // comments: [{
-  //   text: String,
-  //   postedBy: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'User'
-  //   }
-  // }],
-  status: {
-    type: String,
-    default: 'active',
-    enum: ['active', 'nonactive']
-  },
 
+  comments: [{ type: mongoose.Types.ObjectId, ref: 'Comment' }],
 
   displayName: {
     type: String,
@@ -51,13 +24,20 @@ const BlogSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // image: {
-  //   type: String
-  // },
+  catagory: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: Buffer,
+  },
+  userImage: {
+    type: String
+  },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now()
   }
 })
 
-module.exports = mongoose.model('Blog', BlogSchema)
+module.exports = mongoose.model("Blog", BlogSchema)
