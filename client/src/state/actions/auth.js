@@ -20,27 +20,21 @@ export const setLogoutUser = () => {
   };
 };
 
-export const authenticatedLogin = () => {
 
-  return async (dispatch) => {
-    let res = await axios.get('auth/authlogin');
-    if (res.data.session_status === true && res.data.admin === true) {
-      dispatch(setInitialLogin())
-      dispatch(setAdmin(true))
-    }
-    if (res.data.session_status === true && res.data.admin === false) {
-      dispatch(setInitialLogin())
-    }
-  }
-}
-export const getUserData = () => {
 
+export const setUserData = () => {
   return async (dispatch) => {
     let res = await axios.get('auth/userdata');
-    dispatch(setAdmin(res.data.admin))
-    dispatch({
-      type: USER_DATA,
-      payload: res.data
-    })
+    if (res.data) {
+
+      dispatch(setAdmin(res.data.admin))
+      dispatch({
+        type: USER_DATA,
+        payload: res.data
+      })
+    } else {
+      dispatch(setAdmin(false))
+    }
+
   }
 }

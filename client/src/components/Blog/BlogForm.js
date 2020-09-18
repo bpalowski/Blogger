@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Success from '../Results/Success'
 import Error505 from '../Results/Error505'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import Nav from '../Nav/Nav'
 import BlogSelect from '../Blog/BlogSelect'
+import { InboxOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
-import { LoadingOutlined, InboxOutlined, PlusOutlined, CloudUploadOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { Row, Col, Form, Input, Button, message, Upload } from 'antd';
 
-
-
-import { Row, Col, Form, Input, Button, message, Select, Upload } from 'antd';
-
-const { Option } = Select;
 const { Dragger } = Upload;
 
 
-const BlogForm = ({ dataset }) => {
+
+const BlogForm = ({ dataset, location }) => {
   const [form] = Form.useForm();
+
   const [successSent, updateSuccess] = useState(false)
-  const [catagory, updateCatagory] = useState()
+  const [catagory, updateCatagory] = useState('other')
   const [failSent, updateFail] = useState(false)
-  const [setError, updateError] = useState(false)
+
   const [imageUrl, updateImageURL] = useState()
   const [imageDisplay, updateImageDisplay] = useState()
-  const [loading, updateLoading] = useState()
+
+
+
 
 
   const styles = {
@@ -62,29 +62,31 @@ const BlogForm = ({ dataset }) => {
       marginTop: 50
     }
   }
+  const onFinish = async (data) => {
 
-
-  const onFinish = data => {
     const { title, bodyText } = data
+
     const info = new FormData()
     info.append('file', imageUrl);
-    info.append('title', title)
+    info.append('title', title);
     info.append('catagory', catagory)
     info.append('bodyText', bodyText)
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-    axios.post('blog/createblog', info, config)
+
+    return axios.post('blog/createblog', info, config)
       .then(responseArr => {
         if (responseArr.data.success_blog === true) {
           form.resetFields()
           updateSuccess(true)
         }
+        removeImage()
         form.resetFields()
       }).catch(err => {
-        return form.resetFields(),
-          updateFail(true)
+        form.resetFields()
+        return updateFail(true)
       })
-  };
+  }
 
   const getBase64 = (img, callback) => {
     const reader = new FileReader();
@@ -95,13 +97,17 @@ const BlogForm = ({ dataset }) => {
   const props = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+
     onChange(info) {
-      console.log(info)
+
+
       const { status } = info.file;
       if (status === 'done') {
 
+
         updateImageURL(info.file.originFileObj)
         getBase64(info.file.originFileObj, imageUrl => {
+
           updateImageDisplay(imageUrl)
         })
         message.success(`${info.file.name} file uploaded successfully.`);
@@ -121,7 +127,6 @@ const BlogForm = ({ dataset }) => {
     updateImageURL()
   }
 
-
   if (failSent) {
     return <Error505 update={updateFail} />
   }
@@ -135,6 +140,7 @@ const BlogForm = ({ dataset }) => {
 
             <Col style={styles.col3Style}>
               <Form
+
                 form={form}
                 style={styles.borderLess}
                 size="middle"
@@ -144,9 +150,8 @@ const BlogForm = ({ dataset }) => {
 
                 <Row justify="center" style={styles.borderLess}>
                   <Col style={styles.ImageCol}>
-                    <Form.Item>
+                    <Form.Item >
                       <Input.Group >
-
                         {imageDisplay ?
                           <>
                             <Row>
@@ -160,61 +165,53 @@ const BlogForm = ({ dataset }) => {
                               </Col>
                             </Row>
                           </>
-                          : <Dragger {...props} style={{ padding: "10px", width: "150px" }} >
+                          : <Dragger accept="image/*" {...props} style={{ padding: "10px", width: "150px" }} >
                             <p className="ant-upload-drag-icon">
                               <InboxOutlined />
                             </p>
-                          </Dragger>}
+                          </Dragger>
+                        }
+
                       </Input.Group>
                     </Form.Item>
                   </Col>
                 </Row>
+
                 <Row justify="space-around">
                   <Col>
                     <Form.Item required >
                       <Input.Group >
-
                         <Form.Item
-
                           name='title'
                           rules={[{ required: true, message: 'Title is required' }]}
                         >
                           <Input style={styles.inputStyle} placeholder="Input Title" />
                         </Form.Item>
                         <Form.Item
+                          name='catagory'
                         >
                           <BlogSelect selected={updateCatagory} />
                         </Form.Item>
-
-
                       </Input.Group>
                     </Form.Item>
-
                   </Col>
                 </Row>
 
                 <Row justify="center">
                   <Form.Item name='bodyText' style={styles.formItemStyle} rules={[{ required: true, message: 'Blog is required' }]}
                   >
-                    <Input.TextArea maxLength="1000" placeholder="Blog" style={styles.formInputStyle} />
+                    <Input.TextArea placeholder="Blog" style={styles.formInputStyle} />
                   </Form.Item>
                 </Row>
                 <Button size="large" htmlType="submit" style={styles.formButtonStyles} type="primary">Primary Button</Button>
               </Form>
             </Col>
-
-
           </Row>
         </Col>
       </Row >
     </div >
-
-
   )
 }
-
-
-
 const mapStateToProps = state => ({
 });
 const mapDispatchToProps = {};
