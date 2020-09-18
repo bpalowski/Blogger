@@ -1,20 +1,20 @@
-import React from 'react'
+import React, { } from 'react'
 import { Select } from 'antd';
 
 const { Option } = Select;
 
-const BlogSelect = ({ selected }) => {
-  const onChange = (value) => {
-    if (!value) {
+const BlogSelect = ({ selected, selectedEditCatagory }) => {
 
-    }
-    console.log(value)
-    selected(value)
+  const onChange = (value) => {
+    return selectedEditCatagory ? selectedEditCatagory(value) : selected(value)
   }
+
+
   return (
     <Select
       showSearch
       style={{ width: 200 }}
+      name="catagory"
       placeholder="Select a person"
       optionFilterProp="children"
       onChange={onChange}
@@ -22,10 +22,10 @@ const BlogSelect = ({ selected }) => {
         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
       }
     >
-      <Option value="sports">Sports</Option>
-      <Option value="health">Health</Option>
-      <Option value="food">Food</Option>
+      <Option value="information">Information</Option>
+      <Option value="algorithim">Algorithim</Option>
       <Option value="technology">Technology</Option>
+      <Option value="entertainment">Entertainment</Option>
       <Option value="other">Other</Option>
     </Select>
   )

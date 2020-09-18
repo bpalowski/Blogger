@@ -4,7 +4,7 @@ import './index.css';
 import 'antd/dist/antd.css';
 
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, } from 'react-router-dom';
 
 import { Provider } from 'react-redux'
 
@@ -15,9 +15,9 @@ ReactDOM.render(
 
   <Provider store={store}>
     <BrowserRouter>
-      {/* <React.StrictMode> */}
+
       <App />
-      {/* </React.StrictMode> */}
+
     </BrowserRouter>
   </Provider>
   ,

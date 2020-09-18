@@ -26,7 +26,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         authenticated: state.authenticated = true,
-        userData: [...state.userData, action.payload]
+        userData: action.payload
       }
 
     case ADMIN_AUTH:
