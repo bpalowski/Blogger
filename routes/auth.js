@@ -2,7 +2,7 @@ const router = require('express').Router()
 const pass = require('passport')
 const Admin = require('../models/Admin')
 const User = require('../models/User')
-
+const { BASE_URL } = require('../config/exports')
 const { checkAuth, checkGuest } = require('../middleware/auth')
 
 
@@ -16,7 +16,7 @@ router.get('/google', pass.authenticate('google', {
 router.get('/google/callback', pass.authenticate('google', {
   failureRedirect: '/login',
 }), async (req, res) => {
-  return res.redirect(`http://localhost:3000/`)
+  return res.redirect(`${BASE_URL}`)
 });
 
 
