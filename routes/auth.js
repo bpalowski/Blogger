@@ -16,7 +16,7 @@ router.get('/google', pass.authenticate('google', {
 router.get('/google/callback', pass.authenticate('google', {
   failureRedirect: '/login',
 }), async (req, res) => {
-  return res.redirect(`${BASE_URL}`)
+  return res.redirect(`http://blogggers.herokuapp.com/`)
 });
 
 
