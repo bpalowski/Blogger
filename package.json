@@ -4,8 +4,9 @@
   "description": "Application for bloggers",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node server",
-    "dev": "concurrently \"cd client && npm run start\"  \" cross-env NODE_ENV=development nodemon server\""
+    "start": "node ./server.js",
+    "dev": "concurrently \"cd client && npm run start\"  \" cross-env NODE_ENV=development nodemon server\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
