@@ -7,7 +7,7 @@ import Nav from '../Nav/Nav'
 import CommentForm from '../Comment/CommentForm'
 import AuthEditDelete from '../Auth/AuthEditDelete'
 
-import me from '../../img/paul.jpeg'
+import me from '../../img/me.jpeg'
 
 import CardBody from '../Comment/CardBody'
 import SuccessDelete from '../Results/SuccessDelete'
@@ -17,7 +17,7 @@ import { YoutubeFilled, GithubFilled, LinkedinFilled, TwitterSquareFilled } from
 import { Col, Spin, Row, Card, Divider, Avatar, Typography } from 'antd';
 const { Text, Paragraph, Title } = Typography;
 
-const Blog = ({ setUserData, location, userobj, authenticated, admin }) => {
+const Blog = ({ setUserData, location, userobj, authenticated, admin, currentBlog }) => {
 
   const [getRequest, updateRequest] = useState(false)
   const [formSent, updateFormResult] = useState(false)
@@ -139,7 +139,7 @@ const Blog = ({ setUserData, location, userobj, authenticated, admin }) => {
           <Row style={styles.rowStyle1} >
 
             <Col style={styles.avatar}><Avatar size={40} src={me} /></Col>
-            <Col style={styles.name}><Text strong type="secondary">Paul  Franco</Text>
+            <Col style={styles.name}><Text strong type="secondary">Brian Palowski</Text>
 
               <Row style={styles.rowInnerCard} >
                 <Col>
@@ -193,15 +193,14 @@ const Blog = ({ setUserData, location, userobj, authenticated, admin }) => {
                 submitted={updateFormResult}
                 eventNotify={formSent}
                 blog={blogObj}
+                currentBlogArray={currentBlog}
               />
             </div>
 
           </div>
         </div>
         : <Spin delay={9} size="large" />}
-
     </div >)
-
 }
 
 

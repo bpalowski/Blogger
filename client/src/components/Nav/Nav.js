@@ -70,7 +70,7 @@ const Nav = ({ authenticated, setLogoutUser }) => {
     </Header >
     ) : (<Header style={{ backgroundColor: "white" }}>
       <Row>
-        <Col span={2}><Link to="/"> Pauls Blogs</Link></Col>
+        <Col span={2}><Link to="/"> Blogs</Link></Col>
         <Col span={1} offset={20}><Link to="/login">Login</Link></Col>
       </Row>
     </Header>)

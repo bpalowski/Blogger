@@ -15,7 +15,6 @@ const CommentForm = ({ userData, dataBlog, updateBloggs, updateGet, didSubmit })
   const [value, inputText] = useState('')
   const [error, errorBool] = useState(false)
 
-
   const onFinish = (data) => {
     if (data) {
       commentData(data)

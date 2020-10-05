@@ -31,8 +31,6 @@ export const setBlog = (data) => {
   }
 }
 
-
-
 export const setPublicBlogs = () => dispatch => {
   return axios.get('/blog/publicblogs')
     .then(res => {
@@ -42,5 +40,4 @@ export const setPublicBlogs = () => dispatch => {
     }).catch(err => {
       return false
     })
-
 }

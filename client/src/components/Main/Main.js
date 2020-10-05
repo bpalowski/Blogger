@@ -9,7 +9,7 @@ import { setPublicBlogs, setBlog } from '../.././state/actions/blogger'
 import BlogBody from '../Blog/BlogBody';
 
 import Nav from '../Nav/Nav'
-import me from '../../img/paul.jpeg'
+import me from '../../img/me.jpeg'
 import SearchBar from '../SearchBar/SearchBar'
 const { Title, Link, Paragraph, Text } = Typography
 const { Header, Footer, Content } = Layout;
@@ -22,7 +22,6 @@ const { Header, Footer, Content } = Layout;
 const styles = {
   rootContainer: {
     boxShadow: "0px 1px 15px 0px #676767",
-
     height: "90vh",
     margin: " 20px  50px 50px 50px",
   },
@@ -36,19 +35,26 @@ const styles = {
   },
   contentStyle: {
     padding: "2%",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    overflow: "none"
   },
   card: {
     textAlign: "center",
     width: "300px",
-    height: "55vh",
-    // border: "2px solid #484848",
     boxShadow: "0px 1px 15px 0px #676767",
 
-    padding: "30px"
+    padding: "30px",
+    overflow: "hidden",
+    overflowY: "auto",
+    overflowX: "auto",
+    height: '55vh',
+    boxShadow: "0px 1px 15px 0px #676767",
+    marginBottom: "10px",
   },
   row1: {
-    marginTop: "10px"
+    // heightMax: "5px",
+    // overflow: "none"
+    // marginTop: "10px"
   },
   rowInnerCard: {
     marginTop: "50px"
@@ -61,14 +67,15 @@ const styles = {
   header: {
   },
   info: {
-    height: "50vh",
+
+    overFlow: "hidden",
     backgroundColor: "white"
   },
   footStyle: {
     overflow: "hidden",
     height: "15vh",
     padding: "2%",
-    // marginTop: "60px",
+
 
     textAlign: 'center',
     backgroundColor: '#F8F8F8'
@@ -194,34 +201,37 @@ class Main extends PureComponent {
                 <Card
 
                   style={styles.card}
-                  cover={<img style={{ borderRadius: "5%" }} alt="example" src={me} />}>
-                  <Divider />
+                  cover={<img style={{ borderRadius: "5%" }} alt="example" src={me}
 
-                  <Title level={4}>Paul Franco</Title>
-                  <Paragraph>Mobile Application Developer</Paragraph>
-                  <Row style={styles.rowInnerCard} justify="space-around" align="bottom">
-                    <Col>
-                      <Link href="https://www.youtube.com/channel/UCqt7hqVTOLrehKTHIpu99qw" target="_blank">
-                        <YoutubeFilled style={styles.youtube} />
-                      </Link>
-                    </Col>
-                    <Col>
-                      <Link href="https://twitter.com/codefranco" target="_blank">
-                        <TwitterSquareFilled style={styles.twitter} />
-                      </Link>
-                    </Col>
-                    <Col>
-                      <Link href="https://www.linkedin.com/in/codefranco/">
-                        <LinkedinFilled style={styles.linkedin} />
-                      </Link>
-                    </Col>
-                    <Col>
-                      <Link href="https://github.com/paulfranco">
-                        <GithubFilled style={styles.github} />
-                      </Link>
-                    </Col>
-                  </Row>
+                  />}>
+                  <div>
+                    <Divider />
 
+                    <Title level={4}>Brian Palowski</Title>
+                    <Paragraph>Software Developer</Paragraph>
+                    <Row style={styles.rowInnerCard} justify="space-around" align="bottom">
+                      <Col>
+                        <Link href="#" target="_blank">
+                          <YoutubeFilled style={styles.youtube} />
+                        </Link>
+                      </Col>
+                      <Col>
+                        <Link href="#" target="_blank">
+                          <TwitterSquareFilled style={styles.twitter} />
+                        </Link>
+                      </Col>
+                      <Col>
+                        <Link href="#">
+                          <LinkedinFilled style={styles.linkedin} />
+                        </Link>
+                      </Col>
+                      <Col>
+                        <Link href="https://github.com/bpalowski">
+                          <GithubFilled style={styles.github} />
+                        </Link>
+                      </Col>
+                    </Row>
+                  </div>
                 </Card>
               </Col>
 
@@ -235,9 +245,9 @@ class Main extends PureComponent {
             <Col>
               <Title level={5}>Contact</Title>
               {/* <Divider /> */}
-              <Paragraph><Text type="success"><PhoneFilled />206-565-8283</Text></Paragraph>
+              <Paragraph><Text type="success"><PhoneFilled />206-698-1921</Text></Paragraph>
 
-              <Paragraph><Link href="http://www.paulfran.co/">http://www.paulfran.co/</Link></Paragraph>
+              <Paragraph><Link href="#">http://www.brianpalowski.com</Link></Paragraph>
             </Col>
 
           </Row>

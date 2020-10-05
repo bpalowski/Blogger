@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react';
+import { Redirect, withRouter } from 'react-router-dom'
+
 import CommentCard from './CommentCard'
 
 
@@ -27,11 +29,11 @@ class CardBody extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      didMount: false,
+      didMount: null,
       comments: [],
       updateNewList: [],
       newCardList: [],
-      deleted: false
+      deleted: null
     }
   }
 
@@ -42,10 +44,12 @@ class CardBody extends PureComponent {
   componentDidUpdate() {
     if (this.props.updateBlog || this.state.deleted) {
       this.getData()
+    } else {
+      if (this.state.didMount) {
+        this.getData()
+      }
     }
-    if (this.state.didMount) {
-      this.getData()
-    }
+
   }
 
   updateDelete() {
@@ -72,10 +76,17 @@ class CardBody extends PureComponent {
 
   getData = async () => {
     let res1 = await this.props.setPublicBlogs()
+
+    if (this.props.currentBlogArray.length === 0) {
+      console.log(this.props.currentBlogArray.length === 0)
+      return this.props.history.push('/');
+    }
+
     if (res1) {
-      let newArr = this.props.publicBlogs.filter(item => item._id === this.props.currentBlog._id)[0]
+      let newArr = this.props.publicBlogs.filter(item => item._id === this.props.currentBlogArray._id)[0]
 
       let res = await getComments(this.props.blog._id, newArr.comments);
+
       if (res.data) {
         this.setState({
           newCardList: res.data,
@@ -85,15 +96,16 @@ class CardBody extends PureComponent {
         return this.props.updateBloggs(false)
       }
       return this.props.updateBloggs(false)
-    }
 
+
+    }
   }
 
 
 
 
   render() {
-    const data = this.state.comments && this.state.comments.length ? this.state.comments.map((i, x) => {
+    const data = !this.state.comments ? <Spin /> : this.state.comments.map((i, x) => {
 
       return <div style={styles.card} key={x}>
         <CommentCard
@@ -112,7 +124,7 @@ class CardBody extends PureComponent {
           date={i.createdAt.slice(0, 10)}
         />
       </div>
-    }) : <Spin />
+    })
 
     return this.state.didMount ? data :
       this.state.newCardList.map((i, x) => {
@@ -146,4 +158,4 @@ const mapStateToProps = state => ({
   currentBlog: state.bloggerData.currentBlog
 });
 const mapDispatchToProps = { setBlog, setMyBlog, updateBloggs, publicBloggs, setPublicBlogs };
-export default connect(mapStateToProps, mapDispatchToProps)(CardBody)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CardBody))
