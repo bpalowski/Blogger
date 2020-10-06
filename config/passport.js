@@ -10,7 +10,7 @@ module.exports = (passport) => {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       //
-      callbackURL: 'auth/google/callback',
+      callbackURL: 'http://blogggers.herokuapp/auth/google/callback',
       proxy: true
     },
       async (accessToke, refreshToken, profile, callback) => {
