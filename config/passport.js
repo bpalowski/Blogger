@@ -9,8 +9,8 @@ module.exports = (passport) => {
     new GoogleStrategy({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-
-      callbackURL: 'https://blogggers.herokuapp.com/auth/google/callback',
+      proxy: true,
+      callbackURL: 'http://blogggers.herokuapp.com/auth/google/callback',
 
     },
       async (accessToke, refreshToken, profile, callback) => {
