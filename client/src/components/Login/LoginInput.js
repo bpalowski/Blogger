@@ -21,7 +21,7 @@ const LoginInput = () => {
       <Col span={1} >
         <GooglePlusOutlined style={styles.googleStyle} />
       </Col>
-      <Col span={20} offset={3} style={styles.styleCol} >
+      <Col span={20} offset={3} style={styles.styleCol}>
         <a href='auth/google' style={styles.anchorTag}>
           Sign in
         </a>
