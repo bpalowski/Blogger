@@ -12,7 +12,7 @@ router.get('/google', pass.authenticate('google', {
     'https://www.googleapis.com/auth/userinfo.email'
   ]
 }));
-
+//
 router.get('/google/callback', pass.authenticate('google', {
   failureRedirect: 'http://blogggers.herokuapp.com/login',
   successRedirect: 'http://blogggers.herokuapp.com/',
