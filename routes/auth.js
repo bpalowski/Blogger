@@ -14,10 +14,13 @@ router.get('/google', pass.authenticate('google', {
 }));
 //
 router.get('/google/callback', pass.authenticate('google', {
-  failureRedirect: 'http://blogggers.herokuapp.com/login',
-  successRedirect: 'http://blogggers.herokuapp.com/',
+  failureRedirect: '/',
+  successRedirect: '/',
 }), async (req, res) => {
-  return res.redirect('http://blogggers.herokuapp.com/')
+  if (res) {
+    return res.redirect('/')
+  }
+
 });
 
 
