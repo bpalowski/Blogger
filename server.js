@@ -13,6 +13,7 @@ const auth = require('./routes/auth')
 
 const MongoStore = require('connect-mongo')(session)
 const mongoose = require('mongoose')
+const { ignoreFavicon } = require('./config/utilFavicon')
 
 const methodoveride = require('method-override')
 const { setServerIO } = require('./socket');
@@ -21,6 +22,7 @@ require('dotenv').config()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodoveride('_method'))
+app.use(ignoreFavicon);
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');

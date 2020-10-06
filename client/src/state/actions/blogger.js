@@ -32,7 +32,7 @@ export const setBlog = (data) => {
 }
 
 export const setPublicBlogs = () => dispatch => {
-  return axios.get('/blog/publicblogs')
+  return axios.get('blog/publicblogs')
     .then(res => {
       dispatch(publicBloggs(res.data));
     }).then(res => {
