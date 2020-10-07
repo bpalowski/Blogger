@@ -9,9 +9,9 @@ module.exports = (passport) => {
     new GoogleStrategy({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      proxy: true,
-      callbackURL: 'https://blogggers.herokuapp.com/auth/google/callback',
-
+      //
+      callbackURL: '/auth/google/callback',
+      proxy: true
     },
       async (accessToke, refreshToken, profile, callback) => {
         const admins = await Admin.findOne({ email: profile.emails[0].value }).exec() ? true : false

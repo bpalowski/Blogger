@@ -42,8 +42,8 @@ if (process.env.NODE_ENV === "development") {
 // express-session
 app.use(session({
   secret: 'MrBig',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
